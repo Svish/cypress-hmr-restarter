@@ -1,0 +1,6 @@
+{
+  "endOfLine": "lf",
+  "quoteProps": "consistent",
+  "singleQuote": true,
+  "trailingComma": "es5"
+}

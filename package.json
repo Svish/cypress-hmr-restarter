@@ -1,0 +1,43 @@
+{
+  "name": "cypress-hmr-restarter",
+  "version": "0.0.1",
+  "description": "A Cypress plugin which restarts tests on webpack-dev-server HMR updates",
+  "keywords": [
+    "cypress",
+    "plugin",
+    "webpack-dev-server",
+    "hmr"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "upgrade": "npm-check --update",
+    "release": "release-it"
+  },
+  "release-it": {
+    "git": {
+      "tagName": "v%s",
+      "commitArgs": "--gpg-sign",
+      "tagArgs": "--sign"
+    },
+    "github": {
+      "release": true
+    }
+  },
+  "author": "Torleif Berger <torleif@outlook.com> (https://www.geekality.net)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svish/cypress-hmr-restarter"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "cypress": ">=0.20.0"
+  },
+  "devDependencies": {
+    "npm-check": "^5.9.0",
+    "prettier": "^1.19.1",
+    "release-it": "^12.4.3"
+  }
+}
