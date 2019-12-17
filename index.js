@@ -7,6 +7,10 @@ const clickRestart = win => {
 };
 
 Cypress.on('window:load', win => {
+  if (!Cypress.config('isInteractive')) {
+    return;
+  }
+
   const host = Cypress.config('baseUrl').replace(/https?/, 'wss');
   const socket = new WebSocket(`${host}/sockjs-node`);
 
