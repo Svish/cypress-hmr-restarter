@@ -1,6 +1,6 @@
 {
   "name": "cypress-hmr-restarter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Cypress plugin which restarts tests on webpack-dev-server HMR updates",
   "keywords": [
     "cypress",
