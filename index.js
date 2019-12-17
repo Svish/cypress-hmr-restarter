@@ -6,8 +6,8 @@ Cypress.on('window:load', win => {
     return;
   }
 
-  const host = Cypress.config('baseUrl').replace(/https?/, 'wss');
-  const socket = new WebSocket(`${host}/sockjs-node`);
+  const baseUrl = Cypress.config('baseUrl').replace(/https?/, 'wss');
+  const socket = new WebSocket(`${baseUrl}/sockjs-node`);
   let timeout;
 
   socket.onopen = () => console.debug(LOG_TAG, 'Connected to HMR socket');
