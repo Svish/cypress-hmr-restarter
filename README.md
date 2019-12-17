@@ -21,6 +21,6 @@ include 'cypress-hmr-restarter';
 
 ## What it does
 
-When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`.
+When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listen for messages of type `invalid`.
 
-If successful, it will then listen for the `invalid` event, which means HMR is happening. After a short delay it will then find the restart button in the sidebar and click it for you.
+When any of those are received, after a short delay, it will find the restart button in the sidebar and click it for you.
