@@ -12,11 +12,11 @@ A rudimentary [Cypress](https://www.cypress.io/) plugin(?) for automatically res
 npm install --save-dev cypress-hmr-restarter
 ```
 
-### 2. Include
+### 2. Import
 
 ```js
 // E.g. in cypress/support/index.js
-include 'cypress-hmr-restarter';
+import 'cypress-hmr-restarter';
 ```
 
 ## What it does
