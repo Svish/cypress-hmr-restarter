@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "upgrade": "npm-check --update",
+    "update": "npm-check --update",
     "release": "release-it"
   },
   "release-it": {
@@ -36,8 +36,8 @@
     "cypress": ">=0.20.0"
   },
   "devDependencies": {
-    "npm-check": "^5.9.0",
-    "prettier": "^1.19.1",
-    "release-it": "^12.4.3"
+    "npm-check": "^5.9.2",
+    "prettier": "^2.0.4",
+    "release-it": "^13.5.2"
   }
 }
