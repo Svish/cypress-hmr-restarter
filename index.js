@@ -1,7 +1,7 @@
 const DELAY = 1500;
 const LOG_TAG = '[cypress-hmr-restarter]';
 
-Cypress.on('window:load', win => {
+Cypress.on('window:load', (win) => {
   if (!Cypress.config('isInteractive')) {
     return;
   }
@@ -12,11 +12,12 @@ Cypress.on('window:load', win => {
 
   socket.onopen = () => console.debug(LOG_TAG, 'Connected to HMR socket');
   socket.onclose = () => console.debug(LOG_TAG, 'Disconnected from HMR socket');
-  socket.onmessage = e => {
+  socket.onmessage = (e) => {
     const { type } = JSON.parse(e.data);
     switch (type) {
       case 'invalid':
         console.debug(LOG_TAG, `Restarting due to HMR in ${DELAY}ms...`);
+        clickStop(win);
         clearTimeout(timeout);
         timeout = setTimeout(() => clickRestart(win), DELAY);
         break;
@@ -24,8 +25,12 @@ Cypress.on('window:load', win => {
   };
 });
 
-const clickRestart = win => {
-  const btn = win.top.document.querySelector('.reporter .restart');
-  btn && btn.click();
-  console.debug(LOG_TAG, `Restarted.`);
+const click = (win, btnClass, log) => {
+  const btn = win.top.document.querySelector(`.reporter .${btnClass}`);
+  if (btn) {
+    btn.click();
+    console.debug(LOG_TAG, log);
+  }
 };
+const clickStop = (win) => click(win, 'stop', 'Stopped running tests.');
+const clickRestart = (win) => click(win, 'restart', 'Restarted.');
