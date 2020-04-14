@@ -15,7 +15,7 @@
   },
   "release-it": {
     "git": {
-      "tagName": "v%s",
+      "tagName": "v${version}",
       "commitArgs": "--gpg-sign",
       "tagArgs": "--sign"
     },
