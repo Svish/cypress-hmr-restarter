@@ -21,7 +21,7 @@ import 'cypress-hmr-restarter';
 
 ### 3. Make sure `baseUrl` is defined in your `cypress.json`
 
-```json
+```jsonc
 {
   // E.g. when using default config of create-react-app:
   "baseUrl": "http://localhost:3000"
