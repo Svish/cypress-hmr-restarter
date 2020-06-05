@@ -19,6 +19,15 @@ npm install --save-dev cypress-hmr-restarter
 import 'cypress-hmr-restarter';
 ```
 
+### 3. Make sure `baseUrl` is defined in your `cypress.json`
+
+```json
+{
+  // E.g. when using default config of create-react-app:
+  "baseUrl": "http://localhost:3000"
+}
+```
+
 ## What it does
 
 When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listen for messages of type `invalid`.
