@@ -6,8 +6,15 @@ Cypress.on('window:load', (win) => {
     return;
   }
 
-  const baseUrl = Cypress.config('baseUrl').replace(/https?/, 'wss');
-  const socket = new WebSocket(`${baseUrl}/sockjs-node`);
+  const baseUrl = Cypress.config('baseUrl');
+  if (baseUrl == null || baseUrl === '') {
+    throw new Error(
+      `${LOG_TAG} You must define a \`baseUrl\` in your Cypress configuration to use this plugin.`
+    );
+  }
+
+  const url = baseUrl.replace(/https?/, 'wss');
+  const socket = new WebSocket(`${url}/sockjs-node`);
   let timeout;
 
   socket.onopen = () => console.debug(LOG_TAG, 'Connected to HMR socket');
