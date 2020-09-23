@@ -1,6 +1,6 @@
 # cypress-hmr-restarter
 
-A rudimentary [Cypress](https://www.cypress.io/) plugin(?) for automatically restarting tests after [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR) updates.
+A rudimentary [Cypress](https://www.cypress.io/) plugin(?) for automatically restarting tests after Webpack [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR) updates.
 
 [![npm version](https://img.shields.io/npm/v/cypress-hmr-restarter.svg?style=flat-square) ![npm downloads](https://img.shields.io/npm/dm/cypress-hmr-restarter?style=flat-square)](https://www.npmjs.com/package/cypress-hmr-restarter)
 
@@ -16,9 +16,11 @@ npm install --save-dev cypress-hmr-restarter
 
 ```js
 // E.g. in cypress/support/index.js
+
+// For webpack HMR (used in e.g. create-react-app)
 import 'cypress-hmr-restarter';
 
-// When using gatsby or any other project that uses webpack-hot-middleware
+// For webpack-hot-middleware (used in e.g. gatsby)
 import 'cypress-hmr-restarter/gatsby';
 ```
 
@@ -33,6 +35,8 @@ import 'cypress-hmr-restarter/gatsby';
 
 ## What it does
 
-When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listen for messages of type `invalid`. When using the `gatsby` import, it will try to connect to the `<baseUrl>/__webpack_hmr` instead and listen for server side events containing the action of type 'built'.
+When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect and listen for events. When an event signifying a change has happened, after a short delay, it will find the restart button in the sidebar and click it for you.
 
-When any of those are received, after a short delay, it will find the restart button in the sidebar and click it for you.
+- The default import connects to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listens for messages with the type `invalid`.
+
+- The gatsby import connects to the `webpack-hot-middleware` endpoint, assumed to run at `<baseUrl>/__webpack_hmr`, and listens for messages with the action `built`.
