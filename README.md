@@ -17,6 +17,9 @@ npm install --save-dev cypress-hmr-restarter
 ```js
 // E.g. in cypress/support/index.js
 import 'cypress-hmr-restarter';
+
+// When using gatsby or any other project that uses webpack-hot-middleware
+import 'cypress-hmr-restarter/gatsby';
 ```
 
 ### 3. Make sure `baseUrl` is defined in your `cypress.json`
@@ -30,6 +33,6 @@ import 'cypress-hmr-restarter';
 
 ## What it does
 
-When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listen for messages of type `invalid`.
+When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listen for messages of type `invalid`. When using the `gatsby` import, it will try to connect to the `<baseUrl>/__webpack_hmr` instead and listen for server side events containing the action of type 'built'.
 
 When any of those are received, after a short delay, it will find the restart button in the sidebar and click it for you.
