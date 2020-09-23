@@ -30,7 +30,8 @@
   },
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "gatsby.js"
   ],
   "peerDependencies": {
     "cypress": ">=0.20.0"
