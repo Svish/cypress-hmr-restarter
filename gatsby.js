@@ -26,7 +26,7 @@ Cypress.on('window:load', (win) => {
         timeout = setTimeout(() => clickRestart(win), DELAY);
         break;
     }
-  };
+  });
 });
 
 const click = (win, btnClass, log) => {
