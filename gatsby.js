@@ -15,6 +15,7 @@ Cypress.on('window:load', (win) => {
 
   const source = new EventSource(`${baseUrl}/__webpack_hmr`);
   source.onopen = () => console.debug(LOG_TAG, 'Connected to HMR event source');
+  let timeout;
 
   source.addEventListener('message', function (e) {
     const { action } = JSON.parse(e.data);
