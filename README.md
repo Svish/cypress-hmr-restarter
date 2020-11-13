@@ -40,3 +40,12 @@ When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concept
 - The default import connects to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listens for messages with the type `invalid`.
 
 - The gatsby import connects to the `webpack-hot-middleware` endpoint, assumed to run at `<baseUrl>/__webpack_hmr`, and listens for messages with the action `built`.
+
+## Options (and their default value)
+
+```jsonc
+{
+  // Delay between event and restart (ms)
+  "hmrRestartDelay": 1500
+}
+```

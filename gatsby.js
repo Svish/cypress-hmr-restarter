@@ -1,4 +1,3 @@
-const DELAY = 1500;
 const LOG_TAG = '[cypress-hmr-restarter]';
 
 Cypress.on('window:load', (win) => {
@@ -6,7 +5,9 @@ Cypress.on('window:load', (win) => {
     return;
   }
 
+  const delay = Cypress.config('hmrRestartDelay') || 1500;
   const baseUrl = Cypress.config('baseUrl');
+
   if (baseUrl == null || baseUrl === '') {
     throw new Error(
       `${LOG_TAG} You must define a \`baseUrl\` in your Cypress configuration to use this plugin.`
@@ -21,10 +22,10 @@ Cypress.on('window:load', (win) => {
     const { action } = JSON.parse(e.data);
     switch (action) {
       case 'built':
-        console.debug(LOG_TAG, `Restarting due to HMR in ${DELAY}ms...`);
+        console.debug(LOG_TAG, `Restarting due to HMR in ${delay}ms...`);
         clickStop(win);
         clearTimeout(timeout);
-        timeout = setTimeout(() => clickRestart(win), DELAY);
+        timeout = setTimeout(() => clickRestart(win), delay);
         break;
     }
   });
