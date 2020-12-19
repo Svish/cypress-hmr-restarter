@@ -14,7 +14,11 @@ Cypress.on('window:load', (win) => {
     );
   }
 
-  const url = baseUrl.replace(/https?/, 'wss');
+  let url = baseUrl.replace(/https?/, 'wss');
+  if (baseUrl.startsWith("http://")) {
+    url = url.replace(/^wss/, "ws")
+  }
+
   const socket = new WebSocket(`${url}/sockjs-node`);
   let timeout;
 
