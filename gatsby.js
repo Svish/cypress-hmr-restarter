@@ -6,15 +6,9 @@ Cypress.on('window:load', (win) => {
   }
 
   const delay = Cypress.config('hmrRestartDelay') || 1500;
-  const baseUrl = Cypress.config('baseUrl');
+  const url = getUrl();
 
-  if (baseUrl == null || baseUrl === '') {
-    throw new Error(
-      `${LOG_TAG} You must define a \`baseUrl\` in your Cypress configuration to use this plugin.`
-    );
-  }
-
-  const source = new EventSource(`${baseUrl}/__webpack_hmr`);
+  const source = new EventSource(url);
   let timeout;
 
   source.onopen = () => console.debug(LOG_TAG, 'Connected to HMR event source');
@@ -31,12 +25,34 @@ Cypress.on('window:load', (win) => {
   });
 });
 
-const click = (win, btnClass, log) => {
+function getUrl() {
+  const url = Cypress.config('hmrUrl');
+  if (url) {
+    return url;
+  }
+
+  const baseUrl = Cypress.config('baseUrl');
+  if (baseUrl) {
+    return baseUrl + '/__webpack_hmr';
+  }
+
+  throw new Error(
+    `${LOG_TAG} Need endpoint to connect to. Add either \`baseUrl\` or \`hmrUrl\` to \`cypress.json\`.`
+  );
+}
+
+function clickStop(win) {
+  click(win, 'stop', 'Stopped running tests.');
+}
+
+function clickRestart(win) {
+  click(win, 'restart', 'Restarted.');
+}
+
+function click(win, btnClass, log) {
   const btn = win.top.document.querySelector(`.reporter .${btnClass}`);
   if (btn) {
     btn.click();
     console.debug(LOG_TAG, log);
   }
-};
-const clickStop = (win) => click(win, 'stop', 'Stopped running tests.');
-const clickRestart = (win) => click(win, 'restart', 'Restarted.');
+}

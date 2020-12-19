@@ -24,28 +24,33 @@ import 'cypress-hmr-restarter';
 import 'cypress-hmr-restarter/gatsby';
 ```
 
-### 3. Make sure `baseUrl` is defined in your `cypress.json`
+### 3. Make sure either `baseUrl` or `hmrUrl` is configured
+
+```jsonc
+// E.g. in cypress.json
+{
+  // Works with e.g. default create-react-app configuration
+  "baseUrl": "http://localhost:3000"
+}
+```
+
+## Options
 
 ```jsonc
 {
-  // E.g. when using default config of create-react-app:
-  "baseUrl": "http://localhost:3000"
+  // Overrides assuming URL via baseUrl
+  "hmrUrl": "ws://localhost:3000/socks-node", // default import
+  "hmrUrl": "http://localhost:3000/__webpack_hmr", // gatsby import
+
+  // Overrides delay between event and restart (ms)
+  "hmrRestartDelay": 1500
 }
 ```
 
 ## What it does
 
-When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect and listen for events. When an event signifying a change has happened, after a short delay, it will find the restart button in the sidebar and click it for you.
+When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect and listen for events. When an event signifying a change has happened, it will first try clicking the stop button, and then, after a short delay, it will click the restart button.
 
-- The default import connects to the `webpack-dev-server` websocket, which is assumed to run at `wss://<baseUrl>/sockjs-node`, and listens for messages with the type `invalid`.
+- The default import connects to the [`webpack-dev-server`](https://www.npmjs.com/package/webpack-dev-server) websocket at either `<hmrUrl>` or `ws://<baseUrl>/sockjs-node` (`wss:` if `https:`), and listens for messages with the type `invalid`.
 
-- The gatsby import connects to the `webpack-hot-middleware` endpoint, assumed to run at `<baseUrl>/__webpack_hmr`, and listens for messages with the action `built`.
-
-## Options (and their default value)
-
-```jsonc
-{
-  // Delay between event and restart (ms)
-  "hmrRestartDelay": 1500
-}
-```
+- The gatsby import connects to the [`webpack-hot-middleware`](https://www.npmjs.com/package/webpack-hot-middleware) event source at either `<hmrUrl>` or `<baseUrl>/__webpack_hmr`, and listens for messages with the action `built`.
