@@ -14,8 +14,23 @@ Cypress.on('window:load', (win) => {
   socket.onopen = () => console.debug(LOG_TAG, 'Connected to HMR socket');
   socket.onclose = () => console.debug(LOG_TAG, 'Disconnected from HMR socket');
   socket.onmessage = (e) => {
-    const { type } = JSON.parse(e.data);
-    switch (type) {
+    let event;
+
+    try {
+      event = JSON.parse(e.data);
+    } catch (err) {
+      console.debug(
+        LOG_TAG,
+        `Failed to parse event data.`,
+        `\nError:`,
+        err.message,
+        `\nData:`,
+        e.data
+      );
+      return;
+    }
+
+    switch (event.type) {
       case 'invalid':
         console.debug(LOG_TAG, `Restarting due to HMR in ${delay}ms...`);
         clickStop(win);

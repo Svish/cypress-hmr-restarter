@@ -13,8 +13,22 @@ Cypress.on('window:load', (win) => {
 
   source.onopen = () => console.debug(LOG_TAG, 'Connected to HMR event source');
   source.addEventListener('message', function (e) {
-    const { action } = JSON.parse(e.data);
-    switch (action) {
+    let event;
+
+    try {
+      event = JSON.parse(e.data);
+    } catch (err) {
+      console.debug(
+        LOG_TAG,
+        `Failed to parse event data.`,
+        `\nError:`,
+        err.message,
+        `\nData:`,
+        e.data
+      );
+      return;
+    }
+    switch (event.action) {
       case 'built':
         console.debug(LOG_TAG, `Restarting due to HMR in ${delay}ms...`);
         clickStop(win);
