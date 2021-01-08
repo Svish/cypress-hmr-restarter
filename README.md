@@ -17,7 +17,7 @@ npm install --save-dev cypress-hmr-restarter
 ```js
 // E.g. in cypress/support/index.js
 
-// For webpack HMR (used in e.g. create-react-app)
+// For webpack HMR (used in e.g. create-react-app or Angular 11+)
 import 'cypress-hmr-restarter';
 
 // For webpack-hot-middleware (used in e.g. gatsby)
@@ -40,6 +40,7 @@ import 'cypress-hmr-restarter/gatsby';
 {
   // Overrides assuming URL via baseUrl
   "hmrUrl": "ws://localhost:3000/socks-node", // default import
+  "hmrUrl": "ws://localhost:3000/websocket", // gatsby import
   "hmrUrl": "http://localhost:3000/__webpack_hmr", // gatsby import
 
   // Overrides delay between event and restart (ms)
