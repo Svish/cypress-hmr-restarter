@@ -41,7 +41,7 @@ import 'cypress-hmr-restarter/gatsby';
   // Overrides assuming URL via baseUrl
   "hmrUrl": "ws://localhost:3000/sockjs-node", // default import
   "hmrUrl": "ws://localhost:3000/websocket", // Angular 11+ import
-  "hmrUrl": "http://localhost:3000/__webpack_hmr", // gatsby import
+  "hmrUrl": "http://localhost:3000/__webpack_hmr", // Gatsby import
 
   // Overrides delay between event and restart (ms)
   "hmrRestartDelay": 1500
@@ -53,5 +53,6 @@ import 'cypress-hmr-restarter/gatsby';
 When using the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner.html) (`cypress open`), after the window has loaded, it will try to connect and listen for events. When an event signifying a change has happened, it will first try clicking the stop button, and then, after a short delay, it will click the restart button.
 
 - The default import connects to the [`webpack-dev-server`](https://www.npmjs.com/package/webpack-dev-server) websocket at either `<hmrUrl>` or `ws://<baseUrl>/sockjs-node` (`wss:` if `https:`), and listens for messages with the type `invalid`.
+**IMPORTANT:** You need to ensure that [`transportMode`](https://webpack.js.org/configuration/dev-server/#devservertransportmode) option of `webpack-dev-server` is set to `ws` for the feature to work.
 
 - The gatsby import connects to the [`webpack-hot-middleware`](https://www.npmjs.com/package/webpack-hot-middleware) event source at either `<hmrUrl>` or `<baseUrl>/__webpack_hmr`, and listens for messages with the action `built`.
