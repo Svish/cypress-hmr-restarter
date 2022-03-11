@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "npm-check": "^5.9.2",
-    "prettier": "^2.3.0",
-    "release-it": "^14.6.2"
+    "prettier": "^2.5.1",
+    "release-it": "^14.12.5"
   }
 }
