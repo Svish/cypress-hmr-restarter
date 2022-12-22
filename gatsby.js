@@ -37,6 +37,12 @@ Cypress.on('window:load', (win) => {
         break;
     }
   });
+  
+  win.onbeforeunload = () => {
+    // Ensure that the source is closed if the window is unloaded
+    console.debug(LOG_TAG, `Close the HMR Connection`);
+    source.close();
+  }
 });
 
 function getUrl() {
